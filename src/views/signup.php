@@ -25,7 +25,7 @@ if (!empty($_POST)) {
         $stmt->execute();
         header('location: /index');
     } catch (Exception $e) {
-        //echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+        echo 'Excepción capturada: ',  $e->getMessage(), "\n";
         print_r($stmt->errorInfo());
         $error = true;
     }

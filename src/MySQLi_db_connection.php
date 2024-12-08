@@ -31,7 +31,7 @@
 
 
 //Create conection to a PDO SQLite
-$conn  = new PDO('sqlite:C:/Users/luisl/Desktop/GitHub proyects/php-basic-proyect-sqlite/database.db');
+$conn  = new PDO('sqlite:database.db');
 
 // referencehttps://www.w3schools.com/php/php_mysql_connect.asp
 
