@@ -1,10 +1,18 @@
 <?php
 
-session_start();
-if (isset($_SESSION['loggedin'])) { //Si esta logeado mandarlo a /home
-  header('Location: home');
+//Page  to see user and test querys
+
+if (!isset($_SESSION['loggedin'])) {
+    header('Location: /index');
 }
-$conn  = new PDO('sqlite:C:/Users/luisl/Desktop/GitHub proyects/proyect_test/database.db');
+
+if ($_SESSION["user_type"] != "admin") {
+    header('Location: /404');
+}
+
+require_once 'MySQLi_db_connection.php';
+
+
 
 $sql = "SELECT * FROM users;";
 $stmt = $conn->prepare($sql);
@@ -12,10 +20,6 @@ $stmt->execute();
 
 
 $rows = $stmt->fetchAll();
-echo sizeof($rows);
-
-
-
 
 ?>
 
@@ -35,31 +39,30 @@ echo sizeof($rows);
 <body>
   <?php include('partials/ToggleThemeDown.php') ?>
   <div class="container">
-    
     <div class="row">
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>id</th>
-                    <th>username</th>
-                    <th>password</th>
-                    <th>User type</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php for ($i=0; $i <count($rows); $i++) { ?>
-                    <tr>
-                        <td><?= $rows[$i]["id"]; ?></td>
-                        <td><?= $rows[$i]["username"]; ?></td>
-                        <td><?= $rows[$i]["password"]; ?></td>
-                        <td><?= $rows[$i]["user_type"]; ?></td>
-                    </tr>
-                <?php } ?>
-            </tbody>
-        </table>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>username</th>
+            <th>password</th>
+            <th>User type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php for ($i = 0; $i < count($rows); $i++) { ?>
+            <tr>
+              <td><?= $rows[$i]["id"]; ?></td>
+              <td><?= $rows[$i]["username"]; ?></td>
+              <td><?= $rows[$i]["password"]; ?></td>
+              <td><?= $rows[$i]["user_type"]; ?></td>
+            </tr>
+          <?php } ?>
+        </tbody>
+      </table>
     </div>
   </div>
-  
+
   <?php include('partials/footer.php'); ?>
 
 </body>

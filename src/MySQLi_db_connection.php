@@ -1,6 +1,6 @@
 <?php
 
-//necesary for MySqli or PDO connection with localhost
+//necesary for MySqli or PDO connection with localhost, use the .env variables
 // require('../vendor/autoload.php');
 // $dotenv = Dotenv\Dotenv::createImmutable('../');
 // $dotenv->load();
@@ -31,7 +31,12 @@
 
 
 //Create conection to a PDO SQLite
-$conn  = new PDO('sqlite:database.db');
+try {
+    $conn = new PDO('sqlite:database.db');
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("ERROR: No se pudo conectar. " . $e->getMessage());
+}
 
 // referencehttps://www.w3schools.com/php/php_mysql_connect.asp
 
@@ -43,4 +48,3 @@ $conn  = new PDO('sqlite:database.db');
 //$row = mysqli_fetch_row($result);
 
 //mysqli_close($conn); //ver como cerrarla
-?>

@@ -3,7 +3,11 @@
 session_start();
 // If the user is not logged in redirect to the login page...
 if (!isset($_SESSION['loggedin'])) {
-    header('Location: index');
+    header('Location: /index');
+}
+
+if ($_SESSION["user_type"] != "admin") {
+    header('Location: /404');
 }
 
 
@@ -105,7 +109,7 @@ if (!isset($_SESSION['loggedin'])) {
 
             <!-- Nueva grafica -->
             <div class="row">
-                <nav aria-label="breadcrumb" >
+                <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Overview</li>

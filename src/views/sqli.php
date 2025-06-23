@@ -1,9 +1,16 @@
 <?php
 
+//Page to test sqliconnection, error if not
 session_start();
-if (isset($_SESSION['loggedin'])) { //Si esta logeado mandarlo a /home
-  header('Location: home');
+// If the user is not logged in redirect to the login page...
+if (!isset($_SESSION['loggedin'])) {
+  header('Location: /index');
 }
+
+if ($_SESSION["user_type"] != "admin") {
+  header('Location: /404');
+}
+
 
 
 $DATABASE_HOST = "localhost";
@@ -28,7 +35,7 @@ $result = $stmt->get_result(); // Obtiene el resultado preeliminar del query - N
 
 if ($result->num_rows == 1) {
   echo "si";
-}else{
+} else {
   echo "no";
 }
 

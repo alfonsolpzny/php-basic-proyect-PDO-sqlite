@@ -1,5 +1,11 @@
 <?php
 
+// $country = $_POST["country"]; //get param from $_POST
+// $sql = "SELECT city, lat, lng, iso2, iso3, population, admin_name from cities where country = ? ;"; //query
+// $stmt = $conn->prepare($sql); // prepare query before execute
+// $stmt->execute([$country]); //Execute query with parameter where is '?' in query
+// $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 $error = false;
 
 if (!empty($_POST)) {
@@ -8,28 +14,25 @@ if (!empty($_POST)) {
     $username_form = $_POST["username"];
     $password_form = $_POST["password"];
 
+    if (!$username_form || !$password_form) {
+        die("⚠️ Faltan datos");
+    }
+
     $passwordHAsh = password_hash($password_form, PASSWORD_DEFAULT);
-
-    //$sql = "INSERT INTO users(username, password) VALUES('$username_form', '$passwordHAsh');";
-
-
-    
 
     $sql = "INSERT INTO users(username, password) VALUES(?,?);";
     $stmt = $conn->prepare($sql);
-    //$stmt->bind_param('ss', ...[$username_form, $passwordHAsh]);    
-    $stmt->bindParam(1, $username_form, PDO::PARAM_STR);
-    $stmt->bindParam(2, $passwordHAsh, PDO::PARAM_STR);
 
     try {
-        $stmt->execute();
+        $stmt->execute([$username_form, $passwordHAsh]);
         header('location: /index');
+        exit;
     } catch (Exception $e) {
         echo 'Excepción capturada: ',  $e->getMessage(), "\n";
         print_r($stmt->errorInfo());
         $error = true;
     }
-    
+
 
     //$conn->close();
 }

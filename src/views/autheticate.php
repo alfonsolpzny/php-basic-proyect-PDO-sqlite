@@ -18,9 +18,8 @@ if (!empty($_POST)) {
         $sql = "SELECT id, username, password, user_type from users WHERE username = ?;";
 
         if ($stmt = $conn->prepare($sql)) {
-            $stmt->bindParam(1, $username_form, PDO::PARAM_STR);
-            $stmt->execute();
-            $rows = $stmt->fetchall();
+            $stmt->execute([$username_form]);
+            $rows = $stmt->fetchall(PDO::FETCH_ASSOC);
             if (sizeof($rows) == 1) {
                 if (password_verify($_POST["password"], $rows[0]["password"])) {
 

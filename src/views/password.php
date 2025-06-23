@@ -20,13 +20,8 @@ if (!empty($_POST)) {
 
         $sql = "SELECT password from users where id =  ? ;"; //Step 2: Create query to get actual password
         if ($stmt = $conn->prepare($sql)) {
-
-
-            $stmt->bindParam(1, $id, PDO::PARAM_STR);
-
-
-            $stmt->execute();
-            $rows = $stmt->fetchall();
+            $stmt->execute([$id]);
+            $rows = $stmt->fetchall(PDO::FETCH_ASSOC);
 
             if (sizeof($rows) == 1) { //Step 3: Check if query is OK
 
