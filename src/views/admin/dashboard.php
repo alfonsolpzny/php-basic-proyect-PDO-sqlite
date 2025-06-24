@@ -506,9 +506,9 @@ if ($_SESSION["user_type"] != "admin") {
     <script src="/public/js/dashboard.js"></script>
     <script>
         new Chartist.Line('#traffic-chart', {
-            labels: ['January', 'Februrary', 'March', 'April', 'May', 'June'],
+            labels: ['January', 'Februrary', 'March', 'April', 'May', 'June','July','Agust','September','Octuber','November','December'],
             series: [
-                [23000, 25000, 19000, 34000, 56000, 64000]
+                [23000, 25000, 19000, 34000, 56000, 64000, 42000, 21000, 36000, 55000, 38000, 46000, 58000]
             ]
         }, {
             low: 0,
