@@ -5,7 +5,8 @@ if (isset($_SESSION['loggedin'])) { //Si esta logeado mandarlo a /home
 }
 
 if (!empty($_POST)) {
-    require_once 'MySQLi_db_connection.php';
+    require_once 'Database.php';
+    $conn = Database::connect();
 
     //if input fields are empty go to /index page
     if (!isset($_POST["username"], $_POST["password"])) {

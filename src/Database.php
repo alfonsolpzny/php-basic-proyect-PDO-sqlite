@@ -31,11 +31,23 @@
 
 
 //Create conection to a PDO SQLite
-try {
-    $conn = new PDO('sqlite:database.db');
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("ERROR: No se pudo conectar. " . $e->getMessage());
+class Database
+{
+    private static $conn = null;
+
+    public static function connect(): PDO
+    {
+        if (self::$conn === null) {
+            try {
+                self::$conn = new PDO('sqlite:database.db');
+                self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } catch (PDOException $e) {
+                die("Failed connection: " . $e->getMessage());
+            }
+        }
+
+        return self::$conn;
+    }
 }
 
 // referencehttps://www.w3schools.com/php/php_mysql_connect.asp

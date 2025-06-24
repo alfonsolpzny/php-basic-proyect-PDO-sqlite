@@ -10,7 +10,8 @@ $error = false;
 $success = false;
 
 if (!empty($_POST)) {
-    require_once 'MySQLi_db_connection.php';
+    require_once 'Database.php';
+    $conn = Database::connect();
 
     $current =  $_POST["current"];
     $check1 =   $_POST["check1"];

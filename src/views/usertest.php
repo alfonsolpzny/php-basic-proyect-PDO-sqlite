@@ -3,23 +3,19 @@
 //Page  to see user and test querys
 
 if (!isset($_SESSION['loggedin'])) {
-    header('Location: /index');
+  header('Location: /index');
 }
 
 if ($_SESSION["user_type"] != "admin") {
-    header('Location: /404');
+  header('Location: /404');
 }
 
-require_once 'MySQLi_db_connection.php';
-
-
-
+require_once 'Database.php';
+$conn = Database::connect();
 $sql = "SELECT * FROM users;";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
-
-
-$rows = $stmt->fetchAll();
+$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 

@@ -9,7 +9,9 @@
 $error = false;
 
 if (!empty($_POST)) {
-    require_once 'MySQLi_db_connection.php';
+    require_once 'Database.php';
+    $conn = Database::connect();
+
 
     $username_form = $_POST["username"];
     $password_form = $_POST["password"];
